@@ -3,7 +3,8 @@
     <el-carousel arrow="never">
       <div v-if="device === 'desktop'">
         <el-carousel-item style="text-align: center">
-          <img src="@/assets/log/post.png" width="1000px" height="100%">
+           <!-- <img src="@/assets/log/post.png" width="1000px" height="100%"> -->
+            <div style="text-align: center" class="dashboard-text">鱼灬鱼灬库管系统</div>
         </el-carousel-item>
       </div>
       <div v-else>
@@ -12,6 +13,7 @@
         </el-carousel-item>
       </div>
     </el-carousel>
+
 
     <div style="text-align: center" class="dashboard-text">欢迎您</div>
     <div style="text-align: center" class="dashboard-text">{{ name }}</div>
