@@ -1,7 +1,7 @@
 
 .PHONY: build
 build: 
-	go build -o mogutou main.go router.go
+	go build -o mogutou main.go
 
 .PHONY: run
 run: build
