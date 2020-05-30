@@ -1,4 +1,4 @@
-package main
+package router
 
 import (
 	"github.com/Allenxuxu/mogutouERP/api"
@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func initRouter() *gin.Engine {
+func InitRouter() *gin.Engine {
 	r := gin.New()
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowAllOrigins = true

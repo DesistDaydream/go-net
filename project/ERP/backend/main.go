@@ -6,6 +6,7 @@ import (
 
 	"github.com/Allenxuxu/mogutouERP/models"
 	"github.com/Allenxuxu/mogutouERP/pkg/token"
+	"github.com/Allenxuxu/mogutouERP/router"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	config "github.com/micro/go-micro/config"
@@ -42,6 +43,6 @@ func main() {
 
 	gin.DisableConsoleColor()
 	// gin.SetMode(gin.ReleaseMode)
-	r := initRouter()
+	r := router.InitRouter()
 	r.Run(listenAddr) // listen and serve on 0.0.0.0:8080
 }
