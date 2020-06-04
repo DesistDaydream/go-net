@@ -1,7 +1,7 @@
 # Gorm 库介绍
 项目地址：https://github.com/jinzhu/gorm  
 
-# 约定
+# 约定,一些关于 gorm 中的特殊说明
 ## gorm.Model 结构体
 gorm.Model 是一个包含了ID, CreatedAt, UpdatedAt, DeletedAt四个字段的GoLang结构体。
 
@@ -67,7 +67,7 @@ func (u User) TableName() string {
 db.SingularTable(true)
 ```
 
-指定表名称
+## 指定表名称
 ```
 // 使用User结构体创建名为`deleted_users`的表
 db.Table("deleted_users").CreateTable(&User{})
@@ -80,17 +80,16 @@ db.Table("deleted_users").Where("name = ?", "jinzhu").Delete()
 //// DELETE FROM deleted_users WHERE name = 'jinzhu';
 ```
 
-更改默认表名称（table name）
-
+## 更改默认表名称（table name）
 可以通过定义DefaultTableNameHandler来设置默认表名的命名规则
 ```
 gorm.DefaultTableNameHandler = func (db *gorm.DB, defaultTableName string) string  {
   return "prefix_" + defaultTableName;
 }
 ```
-下划线分割命名（Snake Case）的列名
 
-列名由字段名称进行下划线分割来生成
+## 下划线分割命名（Snake Case）的列名
+列名根据结构体中的字段自动生成，若字段中的名字有多个大写，则通过下划线进行分割
 ```
 type User struct {
   ID        uint      // column name is `id`
@@ -99,7 +98,7 @@ type User struct {
   CreatedAt time.Time // column name is `created_at`
 }
 
-// Overriding Column Name
+// 手动设置列名
 type Animal struct {
   AnimalId    int64     `gorm:"column:beast_id"`         // set column name to `beast_id`
   Birthday    time.Time `gorm:"column:day_of_the_beast"` // set column name to `day_of_the_beast`
@@ -107,7 +106,7 @@ type Animal struct {
 }
 ```
 
-时间点（Timestamp）跟踪
+## 时间点（Timestamp）跟踪
 
 CreatedAt
 
@@ -128,4 +127,4 @@ db.Model(&user).Update("name", "jinzhu") // `UpdatedAt`将会是当前时间
 ```
 DeletedAt
 
-如果模型有DeletedAt字段，调用Delete删除该记录时，将会设置DeletedAt字段为当前时间，而不是直接将记录从数据库中删除。 了解什么是 软删除
+如果模型有DeletedAt字段，调用Delete删除该记录时，将会设置DeletedAt字段为当前时间，而不是直接将记录从数据库中删除。 了解什么是 [软删除](https://gorm.io/zh_CN/docs/delete.html#Soft-Delete)
