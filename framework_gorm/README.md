@@ -1,5 +1,6 @@
 # Gorm 库介绍
 项目地址：https://github.com/jinzhu/gorm  
+文档：https://gorm.io/zh_CN/docs/index.html
 
 # 约定,一些关于 gorm 中的特殊说明
 ## gorm.Model 结构体

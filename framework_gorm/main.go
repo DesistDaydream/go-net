@@ -25,6 +25,9 @@ func main() {
 	Init()
 	defer db.Close()
 
+	// 启用Logger，显示详细日志，在运行代码后，会将对数据库的操作命令及其执行结果
+	db.LogMode(true)
+
 	// 插入数据
 	Insert()
 
@@ -60,13 +63,19 @@ func Insert() {
 
 // Delete 删除数据
 func Delete() {
+	// DELETE from products;
+	// 如果 products 表中有 DeleteAt 字段，他将自动获得软删除的功能！ 当调用 Delete 方法时， 记录不会真正的从数据库中被删除， 只会将 DeletedAt 字段的值会被设置为当前时间
+	// 虽然数据不会真正删除，但是在调用Find等方法查询数据时，带有 DeleteAt 字段的数据，则不会被查找出来
 	db.Delete(&products)
+
+	// Unscoped 方法可以物理删除记录，不受是否有DeleteAt字段的影响
+	// db.Unscoped().Delete(&products)
 }
 
 // Update 更新数据
 func Update() {
-	// 更新product的price为2000
-	db.Model(&products).Update("Price", 2000)
+	// UPDATE products SET price='3000';
+	db.Model(&products).Update("Price", 3000)
 }
 
 // Query 查询数据
