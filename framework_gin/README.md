@@ -40,3 +40,8 @@ func PingGet(c *gin.Context) {
 1. 可以指定某字段是必需的。如果一个字段被 binding:"required" 修饰而值却是空的，请求会失败并返回错误。  
 
 详见[binding.go](./features/binding.go)
+
+# Gin 热更新
+为了使代码发生变化时，可以自动编译加载，而不用重新 `go run` 可以通过 fresh 工具实现  
+`go get github.com/pilu/fresh`  
+获取 fresh 之后，在项目目录直接执行 `fresh` 命令即可。fresh命令会代理 go run 命令来执行程序，并且监控代码文件，当发生变化时，可以自动build  
