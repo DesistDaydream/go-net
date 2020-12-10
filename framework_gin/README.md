@@ -1,5 +1,5 @@
 # Gin 介绍
-```
+```go
 package main
 import "github.com/gin-gonic/gin"
 func main() {
@@ -13,7 +13,7 @@ func main() {
 }
 ```
 这是官方的入门介绍，对于编程新手来说不太友好,可以改成下面这个样子  
-```
+```go
 package main
 import "github.com/gin-gonic/gin"
 func main() {
