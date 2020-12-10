@@ -1,9 +1,0 @@
-{
-    "mysql": {
-        "name": "root",
-        "password": "mypassword",
-        "DBname": "erp",
-        "addr": "10.10.100.200:3306"
-    },
-    "listen": "0.0.0.0:8088"
-}
