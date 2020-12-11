@@ -3,22 +3,23 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"os"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-// 数据库连接信息
-const (
-	USERNAME = "root"
-	PASSWORD = "mysql"
-	PROTOCOL = "tcp"
-	SERVER   = "172.19.42.214"
-	PORT     = 33306
-	DATABASE = "test"
-)
+// databaseInfo 数据库连接信息
+type databaseInfo struct {
+	UserName string
+	Password string
+	Protocol string
+	Server   string
+	Port     int64
+	Database string
+}
 
-// User 表结构体定义
+// User 表结构
 type User struct {
 	ID         int    `json:"id" form:"id"`
 	Username   string `json:"username" form:"username"`
@@ -27,22 +28,16 @@ type User struct {
 	Createtime int64  `json:"createtime" form:"createtime"`
 }
 
-func main() {
-	conn := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", USERNAME, PASSWORD, PROTOCOL, SERVER, PORT, DATABASE)
+// ConnDB 连接数据库
+func (i *databaseInfo) ConnDB() (*sql.DB, error) {
+	conn := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", i.UserName, i.Password, i.Protocol, i.Server, i.Port, i.Database)
 	DB, err := sql.Open("mysql", conn)
+	fmt.Println(err)
 	if err != nil {
 		fmt.Println("connection to mysql failed:", err)
-		return
+		os.Exit(3)
 	}
-
-	DB.SetConnMaxLifetime(100 * time.Second) //最大连接周期，超时的连接就close
-	DB.SetMaxOpenConns(100)                  //设置最大连接数
-	CreateTable(DB)
-	InsertData(DB)
-	QueryOne(DB)
-	QueryMulti(DB)
-	UpdateData(DB)
-	DeleteData(DB)
+	return DB, err
 }
 
 // CreateTable 创建表
@@ -152,4 +147,35 @@ func DeleteData(DB *sql.DB) {
 		return
 	}
 	fmt.Println("Affected rows:", rowsaffected)
+}
+
+func main() {
+	// 设置连接数据库的信息
+	i := new(databaseInfo)
+	i.UserName = "root"
+	i.Password = "mysql"
+	i.Protocol = "tcp"
+	i.Server = "127.0.0.1"
+	i.Port = 3306
+	i.Database = "test"
+	// 连接数据库
+	DB, _ := i.ConnDB()
+
+	//最大连接周期，超时的连接就close
+	DB.SetConnMaxLifetime(100 * time.Second)
+	//设置最大连接数
+	DB.SetMaxOpenConns(100)
+
+	// 创建表
+	CreateTable(DB)
+	// 插入数据
+	InsertData(DB)
+	// 查询一行
+	QueryOne(DB)
+	// 查询多行
+	QueryMulti(DB)
+	// 更新数据
+	UpdateData(DB)
+	// 删除数据
+	DeleteData(DB)
 }
