@@ -38,7 +38,6 @@ func (st *SessionStore) Get(key interface{}) interface{} {
 	} else {
 		return nil
 	}
-	return nil
 }
 
 // Delete 删除
@@ -79,7 +78,6 @@ func (frommemory *FromMemory) SessionRead(sid string) (seesioncookie.Session, er
 		sess, err := frommemory.SessionInit(sid)
 		return sess, err
 	}
-	return nil, nil
 }
 
 // SessionDestroy 摧毁

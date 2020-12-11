@@ -38,7 +38,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 	if val != nil {
 		fmt.Println(val)
 	} else {
-		sess.Set("username", "jerry")
+		sess.Set("username", "DesistDaydream")
 		fmt.Println("set session")
 	}
 }
