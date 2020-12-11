@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-// 在服务器上输出客户端发起的 Request 信息
+// printRequest 在服务器上输出客户端发起的 Request 信息
 func printRequest(r *http.Request) {
 	r.ParseForm()
 	fmt.Println(r.Form)
@@ -58,22 +58,18 @@ func login(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// 处理/upload 逻辑
 func upload(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("upload 请求方法为:", r.Method) //获取请求的方法
+	fmt.Println("upload 请求方法为:", r.Method)
 	switch r.Method {
 	case "GET":
-
-	}
-	if r.Method == "GET" {
 		crutime := time.Now().Unix()
 		h := md5.New()
 		io.WriteString(h, strconv.FormatInt(crutime, 10))
 		token := fmt.Sprintf("%x", h.Sum(nil))
 
-		t, _ := template.ParseFiles("upload.html")
+		t, _ := template.ParseFiles("form/upload.html")
 		t.Execute(w, token)
-	} else {
+	default:
 		r.ParseMultipartForm(32 << 20)
 		file, handler, err := r.FormFile("uploadfile")
 		if err != nil {
