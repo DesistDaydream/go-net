@@ -7,7 +7,7 @@
 gorm.Model 是一个包含了ID, CreatedAt, UpdatedAt, DeletedAt四个字段的GoLang结构体。
 
 你可以将它嵌入到你自己的 Model 中，也可以完全使用自己的 Model。
-```
+```go
 // gorm.Model 定义
 type Model struct {
   ID        uint `gorm:"primary_key"`
@@ -16,7 +16,7 @@ type Model struct {
   DeletedAt *time.Time
 }
 ```
-```
+```go
 // Inject fields `ID`, `CreatedAt`, `UpdatedAt`, `DeletedAt` into model `User`
 // 将 `ID`, `CreatedAt`, `UpdatedAt`, `DeletedAt`字段注入到`User`模型中
 type User struct {
@@ -24,7 +24,7 @@ type User struct {
   Name string
 }
 ```
-```
+```go
 // 不使用gorm.Model定义模型
 type User struct {
   ID   int
@@ -47,7 +47,7 @@ type Animal struct {
 ```
 ## 表名（Table Name）
 表名默认就是结构体名称的复数，例如：
-```
+```go
 type User struct {} // 默认表名是 `users`
 
 // 将 User 的表名设置为 `profiles`
@@ -69,7 +69,7 @@ db.SingularTable(true)
 ```
 
 ## 指定表名称
-```
+```go
 // 使用User结构体创建名为`deleted_users`的表
 db.Table("deleted_users").CreateTable(&User{})
 
@@ -83,7 +83,7 @@ db.Table("deleted_users").Where("name = ?", "jinzhu").Delete()
 
 ## 更改默认表名称（table name）
 可以通过定义DefaultTableNameHandler来设置默认表名的命名规则
-```
+```go
 gorm.DefaultTableNameHandler = func (db *gorm.DB, defaultTableName string) string  {
   return "prefix_" + defaultTableName;
 }
@@ -91,7 +91,7 @@ gorm.DefaultTableNameHandler = func (db *gorm.DB, defaultTableName string) strin
 
 ## 下划线分割命名（Snake Case）的列名
 列名根据结构体中的字段自动生成，若字段中的名字有多个大写，则通过下划线进行分割
-```
+```go
 type User struct {
   ID        uint      // column name is `id`
   Name      string    // column name is `name`
@@ -112,7 +112,7 @@ type Animal struct {
 CreatedAt
 
 如果模型有 CreatedAt字段，该字段的值将会是初次创建记录的时间。
-```
+```go
 db.Create(&user) // `CreatedAt`将会是当前时间
 
 // 可以使用`Update`方法来改变`CreateAt`的值
@@ -121,7 +121,7 @@ db.Model(&user).Update("CreatedAt", time.Now())
 UpdatedAt
 
 如果模型有UpdatedAt字段，该字段的值将会是每次更新记录的时间。
-```
+```go
 db.Save(&user) // `UpdatedAt`将会是当前时间
 
 db.Model(&user).Update("name", "jinzhu") // `UpdatedAt`将会是当前时间

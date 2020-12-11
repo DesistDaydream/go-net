@@ -30,7 +30,7 @@ func main() {
 	http.HandleFunc("/", sayhelloName)
 
 	//设置监听的端口
-	err := http.ListenAndServe(":9090", nil)
+	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
