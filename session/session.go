@@ -33,7 +33,7 @@ func sayHelloHandler(w http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintf(w, "Hello world!\n") //这个写入到w的是输出到客户端的
 }
 func login(w http.ResponseWriter, r *http.Request) {
-	sess := globalSessions.SessionStart(w, r)
+	sess := globalSessions.SessionCreate(w, r)
 	val := sess.Get("username")
 	if val != nil {
 		fmt.Println(val)

@@ -103,8 +103,5 @@ func main() {
 
 	fmt.Println("go web 启动，监听在 8080")
 	// 设置监听的端口
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
-	}
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
