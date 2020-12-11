@@ -8,16 +8,19 @@ session和cookie是网站浏览中较为常见的两个概念，也是比较难�
 当用户来到微博登陆页面，输入用户名和密码之后点击“登录”后浏览器将认证信息POST给远端的服务器，服务器执行验证逻辑，如果验证通过，则浏览器会跳转到登录用户的微博首页，在登录成功后，服务器如何验证我们对其他受限制页面的访问呢？因为HTTP协议是无状态的，所以很显然服务器不可能知道我们已经在上一次的HTTP请求中通过了验证。当然，最简单的解决方案就是所有的请求里面都带上用户名和密码，这样虽然可行，但大大加重了服务器的负担（对于每个request都需要到数据库验证），也大大降低了用户体验(每个页面都需要重新输入用户名密码，每个页面都带有登录表单)。既然直接在请求中带上用户名与密码不可行，那么就只有在服务器或客户端保存一些类似的可以代表身份的信息了，所以就有了cookie与session。
 
 cookie，简而言之就是在本地计算机保存一些用户操作的历史信息（当然包括登录信息），并在用户再次访问该站点时浏览器通过HTTP协议将本地cookie内容发送给服务器，从而完成验证，或继续上一步操作。
-[](https://github.com/astaxie/build-web-application-with-golang/raw/master/zh/images/6.1.cookie2.png?raw=true)
+
+![](https://github.com/astaxie/build-web-application-with-golang/raw/master/zh/images/6.1.cookie2.png?raw=true)
 图6.1 cookie的原理图
 
 session，简而言之就是在服务器上保存用户操作的历史信息。服务器使用session id来标识session，session id由服务器负责产生，保证随机性与唯一性，相当于一个随机密钥，避免在握手或传输中暴露用户真实密码。但该方式下，仍然需要将发送请求的客户端与session进行对应，所以可以借助cookie机制来获取客户端的标识（即session id），也可以通过GET方式将id提交给服务器。
-[](https://github.com/astaxie/build-web-application-with-golang/raw/master/zh/images/6.1.session.png?raw=true)
+
+![](https://github.com/astaxie/build-web-application-with-golang/raw/master/zh/images/6.1.session.png?raw=true)
 图6.2 session的原理图
 
 ## cookie
 Cookie是由浏览器维持的，存储在客户端的一小段文本信息，伴随着用户请求和页面在Web服务器和浏览器之间传递。用户每次访问站点时，Web应用程序都可以读取cookie包含的信息。浏览器设置里面有cookie隐私数据选项，打开它，可以看到很多已访问网站的cookies，如下图所示：
-[](https://github.com/astaxie/build-web-application-with-golang/raw/master/zh/images/6.1.cookie.png?raw=true)
+
+![](https://github.com/astaxie/build-web-application-with-golang/raw/master/zh/images/6.1.cookie.png?raw=true)
 图6.3 浏览器端保存的cookie信息
 
 cookie是有时间限制的，根据生命期不同分成两种：会话cookie和持久cookie；
