@@ -17,7 +17,7 @@ session，简而言之就是在服务器上保存用户操作的历史信息。�
 ![](https://github.com/astaxie/build-web-application-with-golang/raw/master/zh/images/6.1.session.png?raw=true)
 图6.2 session的原理图
 
-## cookie
+# cookie
 Cookie是由浏览器维持的，存储在客户端的一小段文本信息，伴随着用户请求和页面在Web服务器和浏览器之间传递。用户每次访问站点时，Web应用程序都可以读取cookie包含的信息。浏览器设置里面有cookie隐私数据选项，打开它，可以看到很多已访问网站的cookies，如下图所示：
 
 ![](https://github.com/astaxie/build-web-application-with-golang/raw/master/zh/images/6.1.cookie.png?raw=true)
@@ -91,3 +91,29 @@ session机制本身并不复杂，然而其实现和配置上的灵活性却使�
 
 通过上面的一些简单介绍我们了解了cookie和session的一些基础知识，知道他们之间的联系和区别，做web开发之前，有必要将一些必要知识了解清楚，才不会在用到时捉襟见肘，或是在调bug时候如无头苍蝇乱转。接下来的几小节我们将详细介绍session相关的知识。
 
+# Go 使用 Session
+通过上一小节的介绍，我们知道session是在服务器端实现的一种用户和服务器之间认证的解决方案，目前Go标准包没有为session提供任何支持，这小节我们将会自己动手来实现go版本的session管理和创建。
+
+## session创建过程
+session的基本原理是由服务器为每个会话维护一份信息数据，客户端和服务端依靠一个全局唯一的标识来访问这份数据，以达到交互的目的。当用户访问Web应用时，服务端程序会随需要创建session，这个过程可以概括为三个步骤：
+
+* 生成全局唯一标识符（sessionid）；
+* 开辟数据存储空间。一般会在内存中创建相应的数据结构，但这种情况下，系统一旦掉电，所有的会话数据就会丢失，如果是电子商务类网站，这将造成严重的后果。所以为了解决这类问题，你可以将会话数据写到文件里或存储在* 数据库中，当然这样会增加I/O开销，但是它可以实现某种程度的session持久化，也更有利于session的共享；
+* 将session的全局唯一标示符发送给客户端。
+
+以上三个步骤中，最关键的是如何发送这个session的唯一标识这一步上。考虑到HTTP协议的定义，数据无非可以放到请求行、头域或Body里，所以一般来说会有两种常用的方式：cookie和URL重写。
+
+1. Cookie 服务端通过设置Set-cookie头就可以将session的标识符传送到客户端，而客户端此后的每一次请求都会带上这个标识符，另外一般包含session信息的cookie会将失效时间设置为0(会话cookie)，即浏览器进程有效时间。至于浏览器怎么处理这个0，每个浏览器都有自己的方案，但差别都不会太大(一般体现在新建浏览器窗口的时候)；
+2. URL重写 所谓URL重写，就是在返回给用户的页面里的所有的URL后面追加session标识符，这样用户在收到响应之后，无论点击响应页面里的哪个链接或提交表单，都会自动带上session标识符，从而就实现了会话的保持。虽然这种做法比较麻烦，但是，如果客户端禁用了cookie的话，此种方案将会是首选。
+
+## Go实现session管理
+通过上面session创建过程的讲解，读者应该对session有了一个大体的认识，但是具体到动态页面技术里面，又是怎么实现session的呢？下面我们将结合session的生命周期（lifecycle），来实现go语言版本的session管理。
+
+session管理设计
+我们知道session管理涉及到如下几个因素
+
+* 全局session管理器
+* 保证sessionid 的全局唯一性
+* 为每个客户关联一个session
+* session 的存储(可以存储到内存、文件、数据库等)
+* session 过期处理
