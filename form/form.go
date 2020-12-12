@@ -46,6 +46,7 @@ func processingFormData(w http.ResponseWriter, r *http.Request) {
 }
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
+	// 解析客户端发送的 request，并输出 request 中的信息
 	// printRequest(r)
 	fmt.Fprintf(w, "Hello DesistDaydream!") // 这个写入到w的是输出到客户端的
 }
