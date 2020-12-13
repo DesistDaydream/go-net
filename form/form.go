@@ -97,7 +97,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// 设置访问的路由
+	// 设置访问的路由与处理器
 	http.HandleFunc("/", sayhelloName)
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/upload", upload)

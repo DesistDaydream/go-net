@@ -12,7 +12,7 @@ func HelloWorld(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	// 设置访问的路由
+	// 设置访问的路由,一般也称为 Handler(处理器)，用来处理 http 请求。比如这里就是处理一个访问 /hello 的 hettp 请求。
 	// 当客户端发起 http 请求，访问 http://IP:8080/hello ，由 HelloWorld 函数处理该请求。
 	http.HandleFunc("/hello", HelloWorld)
 
