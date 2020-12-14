@@ -11,8 +11,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	seesioncookie "github.com/DesistDaydream/GoWeb/sessioncookie"
 )
 
 // printRequest 在服务器上输出客户端发起的 Request 信息
@@ -40,9 +38,6 @@ func processingFormData(w http.ResponseWriter, r *http.Request) {
 	if len(r.Form["username"][0]) == 0 {
 		fmt.Fprint(w, "错误！用户名不能为空")
 	}
-	// 测试 cookie
-	seesioncookie.SetCookie(w, r)
-	seesioncookie.GetCookie(w, r)
 }
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
@@ -61,8 +56,6 @@ func login(w http.ResponseWriter, r *http.Request) {
 		t.Execute(w, nil)
 	default:
 		processingFormData(w, r)
-		// session 与 cookie 练习
-		seesioncookie.SetCookie(w, r)
 	}
 }
 

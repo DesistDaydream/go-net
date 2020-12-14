@@ -8,7 +8,12 @@
 
 
 ## 代码泥潭
-参考：[Go 语言高级编程](https://github.com/chai2010/advanced-go-programming-book/blob/master/ch5-web/ch5-03-middleware.md)
+参考：
+* [《Go 语言高级编程》的中间件章节](https://github.com/chai2010/advanced-go-programming-book/blob/master/ch5-web/ch5-03-middleware.md)
+* [某人博客](https://blog.huoding.com/2019/01/31/716)
+
+如果实在难以理解中间件的实现，可以先去研究 [gin 的中间件使用方法](https://github.com/DesistDaydream/GoGin/tree/main/middleware)
+
 先来看一段代码：
 ```go
 // middleware/hello.go
