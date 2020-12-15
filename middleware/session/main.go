@@ -5,15 +5,15 @@ import (
 	"log"
 	"net/http"
 
-	sessioncookie "github.com/DesistDaydream/GoWeb/sessioncookie"
-	_ "github.com/DesistDaydream/GoWeb/sessionmemory"
+	"github.com/DesistDaydream/GoWeb/middleware/session/manager"
+	_ "github.com/DesistDaydream/GoWeb/middleware/session/memory"
 )
 
-var globalSessions *sessioncookie.SessionManager
+var globalSessions *manager.SessionManager
 
 func init() {
 	var err error
-	globalSessions, err = sessioncookie.NewSessionManager("sessionmemory", "goSessionid", 3600)
+	globalSessions, err = manager.NewSessionManager("sessionmemory", "goSessionid", 3600)
 	if err != nil {
 		fmt.Println(err)
 		return

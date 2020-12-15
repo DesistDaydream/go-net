@@ -1,4 +1,4 @@
-package seesioncookie
+package manager
 
 import (
 	"crypto/rand"

@@ -107,6 +107,7 @@ session的基本原理是由服务器为每个会话维护一份信息数据，�
 2. URL重写 所谓URL重写，就是在返回给用户的页面里的所有的URL后面追加session标识符，这样用户在收到响应之后，无论点击响应页面里的哪个链接或提交表单，都会自动带上session标识符，从而就实现了会话的保持。虽然这种做法比较麻烦，但是，如果客户端禁用了cookie的话，此种方案将会是首选。
 
 ## Go实现session管理
+参考：[CSDN 无风的雨](https://blog.csdn.net/guyan0319/article/details/84879110)
 通过上面session创建过程的讲解，读者应该对session有了一个大体的认识，但是具体到动态页面技术里面，又是怎么实现session的呢？下面我们将结合session的生命周期（lifecycle），来实现go语言版本的session管理。
 
 session管理设计

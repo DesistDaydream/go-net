@@ -1,11 +1,11 @@
-package sessionmemory
+package memory
 
 import (
 	"container/list"
 	"sync"
 	"time"
 
-	seesioncookie "github.com/DesistDaydream/GoWeb/sessioncookie"
+	"github.com/DesistDaydream/GoWeb/middleware/session/manager"
 )
 
 var pder = &FromMemory{list: list.New()}
@@ -13,7 +13,7 @@ var pder = &FromMemory{list: list.New()}
 func init() {
 	pder.sessions = make(map[string]*list.Element, 0)
 	//注册  memory 调用的时候一定有一致
-	seesioncookie.Register("sessionmemory", pder)
+	manager.Register("memory", pder)
 }
 
 // SessionStore session实现
@@ -35,9 +35,8 @@ func (st *SessionStore) Get(key interface{}) interface{} {
 	pder.SessionUpdate(st.sid)
 	if v, ok := st.value[key]; ok {
 		return v
-	} else {
-		return nil
 	}
+	return nil
 }
 
 // Delete 删除
@@ -60,7 +59,7 @@ type FromMemory struct {
 }
 
 // SessionInit 初始化
-func (frommemory *FromMemory) SessionInit(sid string) (seesioncookie.Session, error) {
+func (frommemory *FromMemory) SessionInit(sid string) (manager.Session, error) {
 	frommemory.lock.Lock()
 	defer frommemory.lock.Unlock()
 	v := make(map[interface{}]interface{}, 0)
@@ -71,13 +70,12 @@ func (frommemory *FromMemory) SessionInit(sid string) (seesioncookie.Session, er
 }
 
 // SessionRead 读取
-func (frommemory *FromMemory) SessionRead(sid string) (seesioncookie.Session, error) {
+func (frommemory *FromMemory) SessionRead(sid string) (manager.Session, error) {
 	if element, ok := frommemory.sessions[sid]; ok {
 		return element.Value.(*SessionStore), nil
-	} else {
-		sess, err := frommemory.SessionInit(sid)
-		return sess, err
 	}
+	sess, err := frommemory.SessionInit(sid)
+	return sess, err
 }
 
 // SessionDestroy 摧毁
