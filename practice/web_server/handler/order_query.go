@@ -12,7 +12,7 @@ import (
 
 // Query 查询表单处理
 func Query(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("query当前客户端的请求method为：", r.Method)
+	fmt.Printf("当前客户端的请求%v页面的 Method 为：%v\n", r.RequestURI, r.Method)
 
 	switch r.Method {
 	case "GET":

@@ -12,7 +12,7 @@ import (
 
 // StockIn 入库表单处理
 func StockIn(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("stock-in当前客户端的请求method为：", r.Method)
+	fmt.Printf("当前客户端的请求%v页面的 Method 为：%v\n", r.RequestURI, r.Method)
 
 	switch r.Method {
 	case "GET":
