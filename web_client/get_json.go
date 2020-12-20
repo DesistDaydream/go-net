@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -22,43 +21,6 @@ func NewMessage() *Message {
 	return &Message{}
 }
 
-// Client1 直接使用 http.Get() 来连接服务端
-func Client1() {
-	// net/http 标准库中还可以实现作为客户端发送 http 请求
-	// Get() 向指定的服务器发送一个 HTTP GET 请求，并返回一个 Response
-	resp, err := http.Get("http://172.38.40.250:8080/index")
-	if err != nil {
-		panic(err)
-	}
-	// 关闭连接
-	defer resp.Body.Close()
-
-	// 输出服务端响应的的状态码
-	fmt.Println("Response status:", resp.Status)
-
-	// 输出 Response 中 Body 的前 5 行内容
-	scanner := bufio.NewScanner(resp.Body)
-	for i := 0; scanner.Scan() && i < 5; i++ {
-		fmt.Println(scanner.Text())
-	}
-
-	if err := scanner.Err(); err != nil {
-		panic(err)
-	}
-}
-
-// Client2 先构建一个 Request，再根据这个 Request 发起请求
-func Client2() {
-	// 构建 Request
-	req, _ := http.NewRequest("GET", "http://172.38.40.250:8080/index", nil)
-	req.Header.Set("Content-type", "application/json;charset=utf-8")
-	// 根据新构建的 req 来发起请求，并获取响应信息
-	resp, _ := (&http.Client{}).Do(req)
-	// 处理响应，并输出 Response Body
-	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(body))
-}
-
 // GetJSON 获取 Json 数据并处理
 func GetJSON() {
 	// 第一种请求
@@ -76,8 +38,14 @@ func GetJSON() {
 	// 构建 Request
 	req, _ := http.NewRequest("POST", "http://172.38.40.250:8080/json", bytes.NewBuffer(jsonData))
 	req.Header.Set("Content-type", "application/json;charset=utf-8")
-	// 处理响应信息并输出
-	resp, _ := (&http.Client{}).Do(req)
+
+	// 发起请求并获取 Redponse
+	if resp, err = (&http.Client{}).Do(req); err != nil {
+		panic(err)
+	}
+	// 关闭连接
+	defer resp.Body.Close()
+	// 处理 Response 并输出 Body 内容
 	body, _ := ioutil.ReadAll(resp.Body)
 	fmt.Println(string(body))
 
@@ -90,14 +58,13 @@ func GetJSON() {
 	// 构建 Request
 	req, _ = http.NewRequest("POST", "http://172.38.40.250:8080/json", bytes.NewBuffer(jsonReqBody))
 	req.Header.Set("Content-type", "application/json")
-	// 处理响应信息并输出 Response Body
-	resp, _ = (&http.Client{}).Do(req)
+	// 发起请求并获取 Redponse
+	if resp, err = (&http.Client{}).Do(req); err != nil {
+		panic(err)
+	}
+	// 关闭连接
+	defer resp.Body.Close()
+	// 处理 Response 并输出 Body 内容
 	body, _ = ioutil.ReadAll(resp.Body)
 	fmt.Println(string(body))
-}
-
-func main() {
-	Client1()
-	Client2()
-	GetJSON()
 }
