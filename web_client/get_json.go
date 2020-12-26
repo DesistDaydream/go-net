@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// Message 是一条消息应该具有的基本属性
+// Message 用来表示是一条消息应该具有的基本属性，用于绑定 JSON 各字段
 type Message struct {
 	Name string `json:"name"`
 	Body string `json:"body"`
