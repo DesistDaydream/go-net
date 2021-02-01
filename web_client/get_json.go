@@ -29,7 +29,7 @@ func GetJSON() {
 	m.Name = "DesistDaydream"
 	m.Body = "你好"
 	m.Time = time.Now().Format("2006-01-02 15:04:05")
-	// 将结构体 m 与 JSON 格式数据的 jsonData 绑定。就是将结构体 m 中的数据，以 JSON 格式写入到 jsonData 变量中
+	// 将 结构体m 中的数据，以 JSON 格式写入到 jsonData 变量中
 	jsonData, err := json.Marshal(m)
 	if err != nil {
 		fmt.Println(err)

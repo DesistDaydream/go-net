@@ -38,7 +38,7 @@ func Client2() {
 	// 为构建的 Request 设定请求头信息，可以多次使用 Set() 来设定多个 Header 信息
 	req.Header.Set("Content-type", "application/json;charset=utf-8")
 	// 查看一下将要发起的请求内容
-	fmt.Printf("本次 HTTP Request 为：%v\n请求方法为：%v\n请求头为：%v\n", req, req.Method, req.Header)
+	fmt.Printf("查看本次 HTTP 请求的信息：\n请求内容：%+v\n请求方法：%v\n请求头：%v\n", req, req.Method, req.Header)
 
 	// 根据新构建的 req 来发起请求，并获取响应信息
 	// 这里的 http.Client{} 中可以设置一些发起 HTTP 请求时的一些信息，比如 TLS 等
@@ -64,10 +64,10 @@ func main() {
 	// ########先构建一个 Request，再根据这个 Request 发起请求########
 	// ############################################################
 	fmt.Printf("\n客户端请求二、先构建一个 Request，再根据这个 Request 发起请求\n")
-	// Client2()
+	Client2()
 	// ##########################################################
 	// ########向服务端传递请求体，获取 JSON 数据并处理、输出########
 	// ##########################################################
 	fmt.Printf("\n客户端请求三、向服务端传递请求体，获取 JSON 数据并处理、输出\n")
-	GetJSON()
+	// GetJSON()
 }
