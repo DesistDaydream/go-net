@@ -17,7 +17,7 @@ var (
 func Client1() {
 	// net/http 标准库中可以实现作为客户端发送 http 请求
 	// Get() 向指定的服务器发送一个 HTTP GET 请求，并返回一个 Response
-	if resp, err = http.Get("http://172.38.40.250:8080/index"); err != nil {
+	if resp, err = http.Get("http://localhost:8080/index"); err != nil {
 		panic(err)
 	}
 	// 关闭连接
@@ -34,7 +34,7 @@ func Client1() {
 // Client2 先构建一个 Request，再根据这个 Request 发起请求，这种方式常用来自定义请求内容
 func Client2() {
 	// 构建 Request
-	req, _ = http.NewRequest("GET", "http://172.38.40.250:8080/index", nil)
+	req, _ = http.NewRequest("GET", "http://localhost:8080/index", nil)
 	// 为构建的 Request 设定请求头信息，可以多次使用 Set() 来设定多个 Header 信息
 	req.Header.Set("Content-type", "application/json;charset=utf-8")
 	// 查看一下将要发起的请求内容
@@ -55,8 +55,19 @@ func Client2() {
 
 func main() {
 	// 不同的方式建立与服务端的连接
-	Client1()
-	Client2()
-	// 像服务端传递请求体，获取 JSON 数据并处理、输出
+	// ############################################
+	// ########直接使用 http.Get() 来发起请求########
+	// ############################################
+	fmt.Printf("客户端请求一、直接使用 http.Get() 来发起请求\n")
+	// Client1()
+	// ############################################################
+	// ########先构建一个 Request，再根据这个 Request 发起请求########
+	// ############################################################
+	fmt.Printf("\n客户端请求二、先构建一个 Request，再根据这个 Request 发起请求\n")
+	// Client2()
+	// ##########################################################
+	// ########向服务端传递请求体，获取 JSON 数据并处理、输出########
+	// ##########################################################
+	fmt.Printf("\n客户端请求三、向服务端传递请求体，获取 JSON 数据并处理、输出\n")
 	GetJSON()
 }
