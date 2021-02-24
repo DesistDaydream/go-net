@@ -17,7 +17,7 @@ func Query(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		// 使用query.html响应给客户端
-		t, _ := template.ParseFiles("practice/templates/query.html")
+		t, _ := template.ParseFiles("./templates/query.html")
 		t.Execute(w, nil)
 	default:
 		// 数据处理

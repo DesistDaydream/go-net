@@ -17,7 +17,7 @@ func StockIn(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		// 使用stock-in.html响应给客户端
-		t, _ := template.ParseFiles("practice/templates/stock-in.html")
+		t, _ := template.ParseFiles("./templates/stock-in.html")
 		t.Execute(w, nil)
 	default:
 		r.ParseForm() // 解析请求参数

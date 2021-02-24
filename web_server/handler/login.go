@@ -13,7 +13,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		// 解析一个html文件,并将该页面作为响应，交给客户端
-		t, _ := template.ParseFiles("practice/templates/login.html")
+		t, _ := template.ParseFiles("./templates/login.html")
 		t.Execute(w, nil)
 	default:
 		//解析客户端的请求信息。由于是要识别客户端输入的信息，则必须要解析，否则请求中的body无法识别。

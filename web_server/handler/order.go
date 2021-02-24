@@ -22,7 +22,7 @@ func Order(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		// 解析一个html文件,并将该页面作为响应，交给客户端
-		t, _ := template.ParseFiles("practice/templates/order.html")
+		t, _ := template.ParseFiles("./templates/order.html")
 		t.Execute(w, nil)
 	default:
 		// r.FormValue() 与 r.Form 不同，会自动调用r.ParseForm对客户端提交的参数进行解析
