@@ -21,9 +21,9 @@ func main() {
 	http.HandleFunc("/stock-in", handler.StockIn)
 	http.HandleFunc("/stock-out", handler.StockOut)
 	http.HandleFunc("/query", handler.Query)
-	// 输出请求头信息
+	// 处理请求头，并将请求头响应给客户端
 	http.HandleFunc("/header", handler.RequestHeader)
-	// 接收 JSON 格式请求体，并响应 JSON 格式内容
+	// 处理接收到的 JSON 格式数据，并响应 JSON 格式数据给客户端
 	http.HandleFunc("/json", handler.ResponseJSON)
 
 	// 设置监听的端口
