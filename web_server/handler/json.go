@@ -64,7 +64,7 @@ func ResponseJSON(w http.ResponseWriter, r *http.Request) {
 			// 认证正确，将 struct 类型数据转换为 JSON 格式数据并响应给客户端
 			jsonData, err := json.Marshal(m)
 			if err != nil {
-				fmt.Fprintf(w, "序列化出错，请始终其他数据格式的 Body")
+				fmt.Fprintf(w, "序列化出错，请使用其他数据格式的 Body")
 			}
 			fmt.Fprint(w, string(jsonData))
 		default:
