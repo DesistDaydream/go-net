@@ -23,7 +23,6 @@ func Query(w http.ResponseWriter, r *http.Request) {
 		// 数据处理
 		db, err := sql.Open("mysql", "root:mypassword@/caredaily?charset=utf8")
 		CheckErr(err)
-
-		db.Close()
+		defer db.Close()
 	}
 }

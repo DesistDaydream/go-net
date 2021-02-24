@@ -28,19 +28,8 @@ func StockIn(w http.ResponseWriter, r *http.Request) {
 		// 数据处理
 		db, err := sql.Open("mysql", "root:mypassword@/caredaily?charset=utf8")
 		CheckErr(err)
-
-		stmt, err := db.Prepare("INSERT inventory SET type=?,size=?,inventory=?")
-		CheckErr(err)
-
-		res, err := stmt.Exec(r.Form["类型"][0], r.Form["尺寸"][0], r.Form["数量"][0])
-		CheckErr(err)
-
-		id, err := res.LastInsertId()
-		CheckErr(err)
-
-		fmt.Println(id)
-
-		db.Close()
+		// 在此处写数据处理的具体逻辑
+		defer db.Close()
 	}
 }
 
@@ -51,7 +40,7 @@ func StockOut(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		// 使用stock-out.html响应给客户端
-		t, _ := template.ParseFiles("practice/templates/stock-out.html")
+		t, _ := template.ParseFiles("./templates/stock-out.html")
 		t.Execute(w, nil)
 	default:
 		r.ParseForm() // 解析请求参数
@@ -64,7 +53,7 @@ func StockOut(w http.ResponseWriter, r *http.Request) {
 		// 数据处理
 		db, err := sql.Open("mysql", "root:mypassword@/caredaily?charset=utf8")
 		CheckErr(err)
-
-		db.Close()
+		// 在此处写数据处理的具体逻辑
+		defer db.Close()
 	}
 }
