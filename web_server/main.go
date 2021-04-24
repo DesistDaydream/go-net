@@ -27,7 +27,7 @@ func main() {
 	http.HandleFunc("/query", handler.Query)
 
 	// 设置监听的端口
-	port := ":8060"
+	port := ":8080"
 	fmt.Printf("开始监听 %v 端口", port)
 	if err := http.ListenAndServe(port, nil); err != nil {
 		log.Fatal("ListenAndServe: ", err)
