@@ -17,6 +17,7 @@ var (
 func Client1() {
 	// net/http 标准库中可以实现作为客户端发送 http 请求
 	// Get() 向指定的服务器发送一个 HTTP GET 请求，并返回一个 Response
+	// 注意，Get() 方法本质上，还是调用的是 http.do() 方法，http.do() 方法的示例在本代码的 Client2 中进行展示。
 	if resp, err = http.Get("http://localhost:8080/index"); err != nil {
 		panic(err)
 	}
@@ -41,8 +42,9 @@ func Client2() {
 	fmt.Printf("查看本次 HTTP 请求的信息：\n请求内容：%+v\n请求方法：%v\n请求头：%v\n", req, req.Method, req.Header)
 
 	// 根据新构建的 req 来发起请求，并获取响应信息
-	// 这里的 http.Client{} 中可以设置一些发起 HTTP 请求时的一些信息，比如 TLS 等
-	if resp, err = (&http.Client{}).Do(req); err != nil {
+	// http.Client{} 结构体就是一个 HTTP 客户端。结构体中可以设置一些发起 HTTP 请求时的一些信息，比如 TLS 等
+	http := &http.Client{}
+	if resp, err = http.Do(req); err != nil {
 		panic(err)
 	}
 	// 关闭连接
