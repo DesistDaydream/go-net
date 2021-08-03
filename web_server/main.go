@@ -25,6 +25,9 @@ func main() {
 	http.HandleFunc("/stock-in", handler.StockIn)
 	http.HandleFunc("/stock-out", handler.StockOut)
 	http.HandleFunc("/query", handler.Query)
+	// Prometheus 告警接收接口
+	http.HandleFunc("/alarmService/api/v1/alerts", handler.AlertmanagerV1)
+	http.HandleFunc("/alarmService/api/v2/alerts", handler.AlertmanagerV2)
 
 	// 设置监听的端口
 	port := ":8080"
