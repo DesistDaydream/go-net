@@ -25,13 +25,15 @@ func main() {
 	http.HandleFunc("/stock-in", handler.StockIn)
 	http.HandleFunc("/stock-out", handler.StockOut)
 	http.HandleFunc("/query", handler.Query)
+	// 上传下载
+	http.HandleFunc("/download", handler.Download)
 	// Prometheus 告警接收接口
 	http.HandleFunc("/alarmService/api/v1/alerts", handler.AlertmanagerV1)
 	http.HandleFunc("/alarmService/api/v2/alerts", handler.AlertmanagerV2)
 
 	// 设置监听的端口
 	port := ":8080"
-	fmt.Printf("开始监听 %v 端口", port)
+	fmt.Printf("开始监听 %v 端口\n", port)
 	if err := http.ListenAndServe(port, nil); err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

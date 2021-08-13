@@ -39,7 +39,7 @@ func ResponseJSON(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		// 响应 JSON 格式的默认值
-		fmt.Fprintf(w, string(jsonData))
+		fmt.Fprintln(w, string(jsonData))
 	default:
 		// 模拟下面这样的 curl 请求，程序将会根据 Request Body 中的内容替换 Message 结构体数据中的值，并返回结构体中的数据
 		// 这就好比请求一个需要 TOKEN 的 API，我们只有使用正确的 TOKEN，才可以获取想要的信息
