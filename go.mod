@@ -1,4 +1,4 @@
-module github.com/DesistDaydream/GoWeb
+module github.com/DesistDaydream/go-net
 
 go 1.15
 

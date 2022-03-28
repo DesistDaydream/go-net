@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/DesistDaydream/GoWeb/middleware/session/manager"
+	"github.com/DesistDaydream/go-net/middleware/session/manager"
 )
 
 var pder = &FromMemory{list: list.New()}

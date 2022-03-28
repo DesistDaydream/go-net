@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/DesistDaydream/GoWeb/web_server/handler"
+	"github.com/DesistDaydream/go-net/pkg/http/web_server/handler"
 )
 
 func main() {

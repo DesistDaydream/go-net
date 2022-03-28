@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/DesistDaydream/GoWeb/middleware/session/manager"
-	_ "github.com/DesistDaydream/GoWeb/middleware/session/memory"
+	"github.com/DesistDaydream/go-net/middleware/session/manager"
+	_ "github.com/DesistDaydream/go-net/middleware/session/memory"
 )
 
 var globalSessions *manager.SessionManager
