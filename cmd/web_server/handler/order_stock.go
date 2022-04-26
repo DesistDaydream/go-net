@@ -5,9 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"text/template"
-
-	// mysql驱动
-	_ "github.com/go-sql-driver/mysql"
 )
 
 // StockIn 入库表单处理
@@ -26,10 +23,7 @@ func StockIn(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "恭喜又进货了！")
 
 		// 数据处理
-		db, err := sql.Open("mysql", "root:mypassword@/caredaily?charset=utf8")
-		CheckErr(err)
 		// 在此处写数据处理的具体逻辑
-		defer db.Close()
 	}
 }
 

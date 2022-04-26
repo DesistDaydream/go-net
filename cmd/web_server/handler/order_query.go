@@ -1,13 +1,9 @@
 package handler
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
 	"text/template"
-
-	// mysql驱动
-	_ "github.com/go-sql-driver/mysql"
 )
 
 // Query 查询表单处理
@@ -21,8 +17,5 @@ func Query(w http.ResponseWriter, r *http.Request) {
 		t.Execute(w, nil)
 	default:
 		// 数据处理
-		db, err := sql.Open("mysql", "root:mypassword@/caredaily?charset=utf8")
-		CheckErr(err)
-		defer db.Close()
 	}
 }

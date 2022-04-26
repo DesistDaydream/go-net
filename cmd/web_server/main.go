@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/DesistDaydream/go-net/pkg/http/web_server/handler"
+	"github.com/DesistDaydream/go-net/cmd/web_server/handler"
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 	http.HandleFunc("/alarmService/api/v2/alerts", handler.AlertmanagerV2)
 
 	// 设置监听的端口
-	url := ":8080"
+	url := ":18080"
 	fmt.Printf("开始监听 %v 端口\n", url)
 	if err := http.ListenAndServe(url, nil); err != nil {
 		log.Fatal("ListenAndServe: ", err)
