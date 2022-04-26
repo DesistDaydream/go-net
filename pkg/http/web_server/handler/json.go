@@ -26,6 +26,9 @@ func NewMessage() *Message {
 
 // ResponseJSON 将会响应 JSON 格式数据
 func ResponseJSON(w http.ResponseWriter, r *http.Request) {
+	// 允许跨域访问
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	fmt.Printf("当前客户端的请求 %v 页面的 Method 为：%v\n", r.RequestURI, r.Method)
 	// 初始化结构体，用于存储和响应 JSON 数据
 	m := NewMessage()

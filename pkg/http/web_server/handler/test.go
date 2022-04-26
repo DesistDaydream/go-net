@@ -8,6 +8,9 @@ import (
 
 // Test is
 func Test(w http.ResponseWriter, req *http.Request) {
+	// 允许跨域访问
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	fmt.Printf("Prometheus Push 的 URL 为：%v\n", req.URL)
 	fmt.Printf("Prometheus Push 的 Header 为：%v\n", req.Header)
 	fmt.Printf("Prometheus Push 的 Method 为：%v\n", req.Method)

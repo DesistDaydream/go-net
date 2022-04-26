@@ -32,9 +32,9 @@ func main() {
 	http.HandleFunc("/alarmService/api/v2/alerts", handler.AlertmanagerV2)
 
 	// 设置监听的端口
-	port := ":8080"
-	fmt.Printf("开始监听 %v 端口\n", port)
-	if err := http.ListenAndServe(port, nil); err != nil {
+	url := ":8080"
+	fmt.Printf("开始监听 %v 端口\n", url)
+	if err := http.ListenAndServe(url, nil); err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
 }
