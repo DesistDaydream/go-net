@@ -8,6 +8,9 @@ import (
 
 // Login 登录相关的表单处理功能
 func Login(w http.ResponseWriter, r *http.Request) {
+	// 允许跨域访问
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	fmt.Printf("当前客户端的请求%v页面的 Method 为：%v\n", r.RequestURI, r.Method)
 	// 不同的 Request Method 进行不同处理
 	switch r.Method {

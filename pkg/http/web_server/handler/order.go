@@ -15,6 +15,9 @@ func CheckErr(err error) {
 
 // Order 订单表单处理页面
 func Order(w http.ResponseWriter, r *http.Request) {
+	// 允许跨域访问
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	//显示当前请求的方法
 	fmt.Printf("当前客户端的请求%v页面的 Method 为：%v\n", r.RequestURI, r.Method)
 
