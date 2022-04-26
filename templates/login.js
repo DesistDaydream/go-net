@@ -23,8 +23,8 @@ loginForm.onsubmit = function (e) {
         // 根据响应体中的信息，更新页面
         let resp = JSON.parse(xhr.responseText)
         if (resp.code === 1) {
-            // 跳转到首页
-            window.location.href = "./home.html"
+            // 登录成功后，跳转到其他页面
+            window.location.href = "./order.html"
         } else {
             errBox.style.display = 'block'
         }
