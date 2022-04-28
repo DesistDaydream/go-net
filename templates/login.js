@@ -18,7 +18,7 @@ loginForm.onsubmit = function (e) {
 
     // 发送 ajax 请求
     let xhr = new XMLHttpRequest()
-    xhr.open("POST", "http://localhost:18080/login", true)
+    xhr.open("POST", "http://localhost:18080/api/login", true)
     xhr.onload = function () {
         // 根据响应体中的信息，更新页面
         let resp = JSON.parse(xhr.responseText)

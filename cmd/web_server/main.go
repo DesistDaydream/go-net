@@ -19,7 +19,7 @@ func main() {
 	// 处理接收到的 JSON 格式数据，并响应 JSON 格式数据给客户端
 	http.HandleFunc("/json", handler.ResponseJSON)
 	// 登录功能
-	http.HandleFunc("/login", handler.Login)
+	http.HandleFunc("/api/login", handler.Login)
 	// 按钮跳转、表单处理、数据库的增删改查
 	http.HandleFunc("/order", handler.Order)
 	http.HandleFunc("/stock-in", handler.StockIn)
