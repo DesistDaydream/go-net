@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"github.com/prometheus/alertmanager/api/v2/models"
@@ -11,7 +11,7 @@ import (
 
 // Index 基本展示功能。w为响应给客户端的信息。r为客户端发起的请求信息。
 func AlertmanagerV1(w http.ResponseWriter, r *http.Request) {
-	requestBody, _ := ioutil.ReadAll(r.Body)
+	requestBody, _ := io.ReadAll(r.Body)
 	fmt.Printf("请求体为：%v\n", string(requestBody))
 
 	var postableAlerts models.PostableAlerts
@@ -32,7 +32,7 @@ func AlertmanagerV1(w http.ResponseWriter, r *http.Request) {
 
 // Index 基本展示功能。w为响应给客户端的信息。r为客户端发起的请求信息。
 func AlertmanagerV2(w http.ResponseWriter, r *http.Request) {
-	requestBody, _ := ioutil.ReadAll(r.Body)
+	requestBody, _ := io.ReadAll(r.Body)
 	fmt.Printf("请求体为：%v\n", string(requestBody))
 
 	var postableAlerts models.PostableAlerts

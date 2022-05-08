@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
 )
@@ -45,7 +45,7 @@ func GetJSON() {
 	// 关闭连接
 	defer resp.Body.Close()
 	// 处理 Response 并输出 Body 内容
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	fmt.Printf("第一种响应体为：%v\n", string(body))
 
 	// 第二种请求、手动指定 json 数据，并发起请求
@@ -63,6 +63,6 @@ func GetJSON() {
 	// 关闭连接
 	defer resp.Body.Close()
 	// 处理 Response 并输出 Body 内容
-	body, _ = ioutil.ReadAll(resp.Body)
+	body, _ = io.ReadAll(resp.Body)
 	fmt.Printf("响应体为：%v\n", string(body))
 }

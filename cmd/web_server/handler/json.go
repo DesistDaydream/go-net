@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
 )
@@ -49,7 +49,7 @@ func ResponseJSON(w http.ResponseWriter, r *http.Request) {
 		// curl -XPOST http://172.38.40.250:8080/json -d '{"name":"lichenhao"}'
 		//
 		// 读取 Request 的 Body
-		RequestBody, _ := ioutil.ReadAll(r.Body)
+		RequestBody, _ := io.ReadAll(r.Body)
 		fmt.Printf("请求体为：%v\n", string(RequestBody))
 		// 将 Request Body 的 JSON 格式转换为 struct 类型，并将 struct 中的值替换为 JSON 中的值
 		// 注意，struct 中仅传入一个 key 的值，则 struct 中也只有一个属性的值被替代，其他属性的值保持不变

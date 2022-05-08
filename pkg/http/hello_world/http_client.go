@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -24,7 +24,7 @@ func Client1() {
 	defer resp.Body.Close()
 
 	// 处理 Response 中的 Body，并输出响应体的字符串格式内容
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	fmt.Println(string(body))
 }
 
@@ -44,6 +44,6 @@ func Client2() {
 	defer resp.Body.Close()
 
 	// 处理响应，并输出 Response Body
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	fmt.Println(string(body))
 }
