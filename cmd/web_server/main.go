@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -33,7 +32,7 @@ func main() {
 
 	// 设置监听的端口
 	url := ":18080"
-	fmt.Printf("开始监听 %v 端口\n", url)
+	log.Printf("开始监听 %v 端口\n", url)
 	if err := http.ListenAndServe(url, nil); err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
