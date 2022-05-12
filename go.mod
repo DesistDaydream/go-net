@@ -3,6 +3,7 @@ module github.com/DesistDaydream/go-net
 go 1.18
 
 require (
+	github.com/go-chi/chi v1.5.4
 	github.com/prometheus/alertmanager v0.24.0
 	gorm.io/driver/sqlite v1.3.2
 	gorm.io/gorm v1.23.5
