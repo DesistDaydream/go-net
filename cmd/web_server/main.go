@@ -12,18 +12,17 @@ import (
 
 func main() {
 	// 设置访问的路由
-	// 嵌入静态资源
+	// 嵌入静态资源。前后端分离，不再使用后端的模板渲染前端页面，通过 embed 库实现。
+	// 将所有静态资源嵌入到 Go 的二进制文件中，使用 Go 作为静态资源的 HTTP 服务器
 	http.Handle("/", http.FileServer(http.FS(templates.Assets)))
-	// TODO: 将前后端分离，不再使用后端的模板渲染前端页面
-	// 下面这些接口都将由前端调用，并将结果响应给客户端
-	// 登录功能，已完成分离
+	// 登录功能
 	http.HandleFunc("/api/login", api.Login)
 	// 入库
-	http.HandleFunc("/api/stock-in", handler.StockIn)
+	http.HandleFunc("/api/stock-in", api.StockIn)
 	// 出库
-	http.HandleFunc("/api/stock-out", handler.StockOut)
-	// 查库，已完成分离
-	http.HandleFunc("/api/query", api.Query)
+	http.HandleFunc("/api/stock-out", api.StockOut)
+	// 查库
+	http.HandleFunc("/api/query", api.StockQuery)
 
 	// 测试用接口
 	// 测试用，可以测试接收到的任何 URL，以及传入的内容

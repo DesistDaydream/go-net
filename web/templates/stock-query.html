@@ -38,6 +38,7 @@
       <thead>
         <tr>
           <th>供应商</th>
+          <th>产品</th>
           <th>类型</th>
           <th>尺寸</th>
           <th>订单数量</th>
@@ -50,8 +51,8 @@
 
 <script>
     // 获取表单中的按钮
-    var stockQuery = document.querySelector('button[name=StockQuery]');
-    var stockReturn = document.querySelector('button[name=StockReturn]');
+    let stockQuery = document.querySelector('button[name=StockQuery]');
+    let stockReturn = document.querySelector('button[name=StockReturn]');
 
     // 点击返回按钮，跳转到 order.html
     stockReturn.onclick = function() {
@@ -73,14 +74,17 @@
             let td2 = document.createElement("td")
             let td3 = document.createElement("td")
             let td4 = document.createElement("td")
+            let td5 = document.createElement("td")
             td1.innerText = resp[i].Provider
             td2.innerText = resp[i].Product
-            td3.innerText = resp[i].Size
-            td4.innerText = resp[i].Amount
+            td3.innerText = resp[i].Type
+            td4.innerText = resp[i].Size
+            td5.innerText = resp[i].Amount
             tr.appendChild(td1)
             tr.appendChild(td2)
             tr.appendChild(td3)
             tr.appendChild(td4)
+            tr.appendChild(td5)
             tbody.appendChild(tr)
         }
     }

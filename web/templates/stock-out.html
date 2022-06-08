@@ -1,20 +1,22 @@
+<!DOCTYPE html>
 <html>
+
 <head>
-<title>出库</title>
+  <title>出库</title>
 </head>
+
 <body>
-
   <form action="/stock-out" method="post">
-    客户:<input type="text" name="客户">
+    客户:<input type="text" name="customer" size="4">
 
-    <select name="类型">
+    <select name="product">
       <option value="果C精品">果C精品</option>
       <option value="新款丝薄">新款丝薄</option>
       <option value="IP小飞侠">IP小飞侠</option>
       <option value="丝柔">丝柔</option>
     </select>
 
-    <select name="尺寸">
+    <select name="size">
       <option value="NB">NB</option>
       <option value="S">S</option>
       <option value="M">M</option>
@@ -24,17 +26,80 @@
       <option value="XXXL">XXXL</option>
     </select>
 
-    数量:<input type="text" name="数量">
+    数量:<input type="text" name="amount" style="width:30px">
+    <br>
 
-    <input type="submit" name="提交" value="提交">
+    <button name="StockOut">出库</button>
+    <button name="Back">返回</button>
+    <br>
+
+    <input type="radio" name="type" value="1">纸尿裤
+    <input type="radio" name="type" value="2">拉拉裤
+    <br>
+
+    <input type="checkbox" name="interest" value="note1">备注1
+    <input type="checkbox" name="interest" value="note2">备注2
+    <input type="checkbox" name="interest" value="note3">备注3
   </form>
-
-<input type="radio" name="gender" value="1">纸尿裤
-<input type="radio" name="gender" value="2">拉拉裤
-
-<input type="checkbox" name="interest" value="note1">备注1
-<input type="checkbox" name="interest" value="note2">备注2
-<input type="checkbox" name="interest" value="note3">备注3
-
 </body>
+
+<script>
+  // 获取页面上的元素
+  let FormEle = document.querySelector('form')
+  let CustomerEle = FormEle.querySelector('input[name=customer]')
+  let ProductEle = FormEle.querySelector('select[name=product]')
+  let SizeEle = FormEle.querySelector('select[name=size]')
+  let AmountEle = FormEle.querySelector('input[name=amount]')
+  let TypeEle = FormEle.querySelector('input[name=type]')
+  let InterestEle = FormEle.querySelectorAll('input[name=interest]')
+  // 获取出库按钮元素
+  let StockOutEle = FormEle.querySelector('button[name=StockOut]')
+  let BackEle = FormEle.querySelector('button[name=Back]')
+
+  // 点击提交按钮，提交表单
+  StockOutEle.onclick = function(e) {
+    // 阻止默认行为
+    e.preventDefault()
+
+    // 获取表单数据
+    let Customer = CustomerEle.value
+    let Product = ProductEle.value
+    let Size = SizeEle.value
+    let Amount = AmountEle.value
+    let Type = TypeEle.value
+    // 转为 JSON
+    let data = {
+      customer: Customer,
+      product: Product,
+      type: Type,
+      size: Size,
+      amount: parseInt(Amount)
+    }
+
+    console.log(data)
+
+    // 创建请求
+    let xhr = new XMLHttpRequest()
+    xhr.open('POST', 'http://localhost:18080/api/stock-out')
+    xhr.onload = function (){
+      // 响应数据 =ok 时出库成功
+      if (xhr.responseText === 'ok') {
+        alert('出库成功')
+      } else {
+        alert('出库失败')
+      }
+    }
+    xhr.send(JSON.stringify(data))
+  }
+
+  // 点击返回时，返回上一页
+  BackEle.onclick = function(e) {
+    // 阻止表单的默认提交行为
+    e.preventDefault()
+    location.href = "./order.html"
+  }
+
+
+</script>
+
 </html>
