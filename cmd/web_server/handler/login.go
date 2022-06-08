@@ -3,11 +3,11 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"text/template"
 
 	"github.com/DesistDaydream/go-net/cmd/web_server/database"
+	"github.com/sirupsen/logrus"
 )
 
 // 响应结构体
@@ -27,22 +27,21 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	// 允许跨域访问
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	log.Printf("当前客户端的请求 %v 页面的 Method 为：%v\n", r.RequestURI, r.Method)
+	logrus.Printf("当前客户端的请求 %v 页面的 Method 为：%v\n", r.RequestURI, r.Method)
 	// 不同的 Request Method 进行不同处理
 	switch r.Method {
 	case "GET":
 		// 解析一个html文件,并将该页面作为响应，交给客户端
-		t, _ := template.ParseFiles("./templates/login.html")
+		t, _ := template.ParseFiles("./web/templates/login.html")
 		t.Execute(w, nil)
 	default:
 		username := r.FormValue("username")
 		password := r.FormValue("password")
-		log.Println("用户输入的信息为: ", r.Form)
+		logrus.Println("用户输入的信息为: ", r.Form)
 
 		// 根据请求体中的用户名和密码，查询数据库，判断是否存在该用户
-		db := database.InitDB()
-		if err := database.QueryUser(db, username, password); err != nil {
-			log.Printf("%v 登录失败，原因：%v", username, err)
+		if _, err := database.VerifyUser(username, password); err != nil {
+			logrus.Printf("%v 登录失败，原因：%v", username, err)
 			resp := LoginResponse{
 				Code:  0,
 				Token: "",
@@ -56,7 +55,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			// w.WriteHeader(http.StatusUnauthorized)
 			w.Write(jsonStr)
 		} else {
-			log.Printf("%v 登录成功", username)
+			logrus.Printf("%v 登录成功", username)
 			// 生成 Token
 			token := GenerateToken(username)
 			// 响应结构体

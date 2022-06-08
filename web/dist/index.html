@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go 静态资源</title>
+  <script type="module" crossorigin src="/assets/index.e25e14ee.js"></script>
+</head>
+
+<body>
+    <!-- 通过 CDN 方式导入 vue 包 -->
+    <!-- lib 目录的 js 文件来自于 https://unpkg.com/vue@3，
+        该链接来源于[官方文档，快速开始-不使用构建工具](https://staging-cn.vuejs.org/guide/quick-start.html#without-build-tools) -->
+    <!-- 若不使用 CDN 方式导入，则需要在 main.js 文件中使用 import 关键字导入 Vue -->
+    <!-- <script src="./lib/vue.global.js"></script> -->
+
+    <!-- 模板语言，当 js 代码绑定到 id 为 app 的元素时，Vue 框架将会解析 {{}} 中的内容 -->
+    <div id="app">
+        <!-- 模板语法 -->
+        <h2>{{ title }}</h2>
+        {{ message }}
+
+        <!-- @click 关键字由 vue 解析，会将具有该属性的元素绑定到 handleClick() 方法上 -->
+        <!-- 这里点击该按钮将会执行 handleClick() 内的代码 -->
+        <button @click="handleClick()">change</button>
+    </div>
+
+    <!-- 将该脚本当做模块类型处理，此处没啥意义 -->
+
+</body>
+
+</html>
