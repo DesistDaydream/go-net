@@ -9,22 +9,19 @@
 </body>
 
 <script>
-  // 逐一获取页面上的按钮元素
+  // 绑定页面上的按钮元素
   var StockIn = document.querySelector('button[name=StockIn]');
   var StockOut = document.querySelector('button[name=StockOut]');
   var StockQuery = document.querySelector('button[name=StockQuery]');
 
-  // 绑定入库按钮
   StockIn.onclick = function() {
     // 跳转到入库页面
     location.href = './stock-in.html';
   }
-  // 绑定出库按钮
   StockOut.onclick = function() {
     // 跳转到出库页面
     location.href = './stock-out.html';
   }
-  // 绑定查询按钮
   StockQuery.onclick = function() {
     // 跳转到查询页面
     location.href = './stock-query.html';
