@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
 	"text/template"
@@ -43,11 +42,5 @@ func StockOut(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("该型号尺寸:", r.Form["尺寸"])
 
 		fmt.Fprintf(w, "赚钱啦！！")
-
-		// 数据处理
-		db, err := sql.Open("mysql", "root:mypassword@/caredaily?charset=utf8")
-		CheckErr(err)
-		// 在此处写数据处理的具体逻辑
-		defer db.Close()
 	}
 }

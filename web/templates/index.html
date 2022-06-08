@@ -15,13 +15,17 @@
 </body>
 
 <script>
-    // 绑定登录按钮
-    document.querySelector('button[name=SignIn]').onclick = function() {
+    // 绑定按钮
+    var signIn = document.querySelector('button[name=SignIn]')
+    var signUp = document.querySelector('button[name=SignUp]')
+
+
+    signIn.onclick = function() {
         // 跳转到登录页面
         location.href = './login.html';
     }
-    // 绑定注册按钮
-    document.querySelector('button[name=SignUp]').onclick = function() {
+
+    signUp.onclick = function() {
         // 跳转到注册页面
         location.href = '/register';
     }
