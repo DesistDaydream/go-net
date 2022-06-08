@@ -25,6 +25,8 @@ func main() {
 	http.HandleFunc("/api/query", api.StockQuery)
 
 	// 测试用接口
+	// 基本的 GET、POST、PUT、DELETE 接口用法
+	http.HandleFunc("/server", handler.Server)
 	// 测试用，可以测试接收到的任何 URL，以及传入的内容
 	http.HandleFunc("/test", handler.Test)
 	// 处理请求头，并将请求头响应给客户端
