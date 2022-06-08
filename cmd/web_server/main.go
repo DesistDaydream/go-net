@@ -6,13 +6,13 @@ import (
 
 	"github.com/DesistDaydream/go-net/cmd/web_server/database"
 	"github.com/DesistDaydream/go-net/cmd/web_server/handler"
-	"github.com/DesistDaydream/go-net/web"
+	"github.com/DesistDaydream/go-net/web/templates"
 )
 
 func main() {
 	// 设置访问的路由
 	// 嵌入静态资源
-	http.Handle("/", http.FileServer(http.FS(web.Assets)))
+	http.Handle("/", http.FileServer(http.FS(templates.Assets)))
 	// TODO: 将前后端分离，不再使用后端的模板渲染前端页面
 	// 下面这些接口都将由前端调用，并将结果响应给客户端
 	// 登录功能
@@ -26,8 +26,6 @@ func main() {
 	// 测试用接口
 	// 测试用，可以测试接收到的任何 URL，以及传入的内容
 	http.HandleFunc("/test", handler.Test)
-	// 基本的 Web Server 端功能
-	http.HandleFunc("/index", handler.Index)
 	// 处理请求头，并将请求头响应给客户端
 	http.HandleFunc("/header", handler.RequestHeader)
 	// 处理接收到的 JSON 格式数据，并响应 JSON 格式数据给客户端

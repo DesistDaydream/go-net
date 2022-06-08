@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    我是网站首页
+    <button name="SignIn">登录</button>
+    <button name="SignUp">注册</button>
+</body>
+
+<script>
+    // 绑定登录按钮
+    document.querySelector('button[name=SignIn]').onclick = function() {
+        // 跳转到登录页面
+        location.href = './login.html';
+    }
+    // 绑定注册按钮
+    document.querySelector('button[name=SignUp]').onclick = function() {
+        // 跳转到注册页面
+        location.href = '/register';
+    }
+</script>
+
+</html>
