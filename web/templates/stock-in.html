@@ -4,15 +4,15 @@
 </head>
 <body>
 
-  <form action="/stock-in" method="post">
-    <select name="类型">
+  <form>
+    <select name="type">
       <option value="果C精品">果C精品</option>
       <option value="新款丝薄">新款丝薄</option>
       <option value="IP小飞侠">IP小飞侠</option>
       <option value="丝柔">丝柔</option>
     </select>
 
-    <select name="尺寸">
+    <select name="size">
       <option value="NB">NB</option>
       <option value="S">S</option>
       <option value="M">M</option>
@@ -22,9 +22,9 @@
       <option value="XXXL">XXXL</option>
     </select>
 
-    数量:<input type="text" name="数量">
+    数量:<input type="text" name="number">
 
-    <input type="submit" name="提交" value="提交">
+    <input type="submit" name="commit" value="提交">
   </form>
 
 <input type="radio" name="gender" value="1">纸尿裤
@@ -35,4 +35,45 @@
 <input type="checkbox" name="interest" value="note3">备注3
 
 </body>
+
+<script>
+  var stockIn = document.querySelector('form');
+
+  // 判断是否选择了类型
+  var stockInType = stockIn.querySelector('select[name=type]');
+  var stockInTypeValue = stockInType.value;
+  // 选择 size
+  var stockInSize = stockIn.querySelector('select[name=size]');
+  var stockInSizeValue = stockInSize.value;
+  // 选择数量
+  var stockInInput = stockIn.querySelector('input[name=number]');
+  var stockInInputValue = stockInInput.value;
+
+
+  // 点击提交按钮，提交表单
+  var stockInSubmit = stockIn.querySelector('input[name=commit]');
+  stockInSubmit.onclick = function(e) {
+    e.preventDefault()
+    // 判断数量中为正整数
+    // var stockInInputValueReg = /^[1-9]\d*$/;
+    // if (!stockInInputValueReg.test(stockInInputValue)) {
+    //   alert('请输入正整数');
+    // }
+    console.log(stockInInputValue)
+    console.log(stockInTypeValue)
+    console.log(stockInSizeValue)
+
+    // 点击提交时，发起请求
+    let xhr = new XMLHttpRequest()
+    xhr.open('POST', 'http://localhost:18080/api/stock-in',true)
+    xhr.onload = function (){
+
+    }
+    xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded")
+    xhr.send('input=' + stockInInputValue + '&type=' + stockInTypeValue + '&size=' + stockInSizeValue)
+  }
+
+
+</script>
+
 </html>

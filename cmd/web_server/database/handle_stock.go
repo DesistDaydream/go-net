@@ -32,7 +32,7 @@ type Commodity struct {
 // 	db.Create(i)
 // }
 
-// QueryStockInOrder 在 query.go 页面中查询数据库中的入库订单数据
+// QueryStockInOrder 在 stock-query.html 页面中查询数据库中的入库订单数据
 func QueryStockInOrder() (StockInOrders []StockInOrder) {
 	// 数据库处理逻辑
 	db.Find(&StockInOrders)
