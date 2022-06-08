@@ -37,21 +37,17 @@
 </body>
 
 <script>
+  // 获取页面上的元素
   var stockIn = document.querySelector('form');
-
-  // 判断是否选择了类型
   var stockInType = stockIn.querySelector('select[name=type]');
   var stockInTypeValue = stockInType.value;
-  // 选择 size
   var stockInSize = stockIn.querySelector('select[name=size]');
   var stockInSizeValue = stockInSize.value;
-  // 选择数量
   var stockInInput = stockIn.querySelector('input[name=number]');
   var stockInInputValue = stockInInput.value;
-
+  var stockInSubmit = stockIn.querySelector('input[name=commit]');
 
   // 点击提交按钮，提交表单
-  var stockInSubmit = stockIn.querySelector('input[name=commit]');
   stockInSubmit.onclick = function(e) {
     e.preventDefault()
     // 判断数量中为正整数
