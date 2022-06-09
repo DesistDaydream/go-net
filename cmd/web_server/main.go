@@ -7,14 +7,14 @@ import (
 	"github.com/DesistDaydream/go-net/cmd/web_server/api"
 	"github.com/DesistDaydream/go-net/cmd/web_server/database"
 	"github.com/DesistDaydream/go-net/cmd/web_server/handler"
-	"github.com/DesistDaydream/go-net/web/templates"
+	"github.com/DesistDaydream/go-net/web/ui"
 )
 
 func main() {
 	// 设置访问的路由
 	// 嵌入静态资源。前后端分离，不再使用后端的模板渲染前端页面，通过 embed 库实现。
 	// 将所有静态资源嵌入到 Go 的二进制文件中，使用 Go 作为静态资源的 HTTP 服务器
-	http.Handle("/", http.FileServer(http.FS(templates.Assets)))
+	http.Handle("/", http.FileServer(http.FS(ui.Assets)))
 	// 登录功能
 	http.HandleFunc("/api/login", api.Login)
 	// 入库

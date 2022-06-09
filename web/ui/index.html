@@ -10,6 +10,7 @@
 
 <body>
     我是网站首页
+    <br>
     <button name="SignIn">登录</button>
     <button name="SignUp">注册</button>
 </body>
@@ -20,12 +21,12 @@
     var signUp = document.querySelector('button[name=SignUp]')
 
 
-    signIn.onclick = function() {
+    signIn.onclick = function () {
         // 跳转到登录页面
-        location.href = './login.html';
+        location.href = './static/html/login.html';
     }
 
-    signUp.onclick = function() {
+    signUp.onclick = function () {
         // 跳转到注册页面
         location.href = '/register';
     }

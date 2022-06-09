@@ -10,6 +10,9 @@ import (
 
 // StockQuery 查询表单处理
 func StockQuery(w http.ResponseWriter, r *http.Request) {
+	// 允许跨域访问，当使用 live server 响应前端代码时方便调试
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	logrus.WithFields(logrus.Fields{
 		"方法": r.Method,
 		"端点": r.RequestURI,

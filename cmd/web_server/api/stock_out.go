@@ -11,6 +11,9 @@ import (
 
 // StockOut 出库表单处理
 func StockOut(w http.ResponseWriter, r *http.Request) {
+	// 允许跨域访问，当使用 live server 响应前端代码时方便调试
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	logrus.WithFields(logrus.Fields{
 		"方法": r.Method,
 		"端点": r.RequestURI,
