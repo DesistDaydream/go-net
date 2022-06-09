@@ -1,31 +1,36 @@
 <html>
+
 <head>
-<title>订单系统</title>
+    <title>订单系统</title>
 </head>
+
 <body>
     <button name="StockIn">入库</button>
     <button name="StockOut">出库</button>
     <button name="StockQuery">查询</button>
 </body>
 
-<script>
-  // 绑定页面上的按钮元素
-  var StockIn = document.querySelector('button[name=StockIn]');
-  var StockOut = document.querySelector('button[name=StockOut]');
-  var StockQuery = document.querySelector('button[name=StockQuery]');
+<script src="order.js"></script>
 
-  StockIn.onclick = function() {
-    // 跳转到入库页面
-    location.href = './stock-in.html';
-  }
-  StockOut.onclick = function() {
-    // 跳转到出库页面
-    location.href = './stock-out.html';
-  }
-  StockQuery.onclick = function() {
-    // 跳转到查询页面
-    location.href = './stock-query.html';
-  }
+<script>
+    // 绑定页面上的按钮元素
+    let StockIn = document.querySelector('button[name=StockIn]');
+    let StockOut = document.querySelector('button[name=StockOut]');
+    let StockQuery = document.querySelector('button[name=StockQuery]');
+
+    StockIn.onclick = function () {
+        // 跳转到入库页面
+        location.href = './stock-in.html';
+    }
+    StockOut.onclick = function () {
+        // 跳转到出库页面
+        location.href = './stock-out.html';
+    }
+    StockQuery.onclick = function () {
+        // 跳转到查询页面
+        location.href = './stock-query.html';
+    }
+    console.log(abcd)
 </script>
 
 </html>
