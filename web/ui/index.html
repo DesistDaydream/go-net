@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     我是网站首页
-    <br>
+    <br />
     <button name="SignIn">登录</button>
     <button name="SignUp">注册</button>
-</body>
+  </body>
 
-<script>
+  <script>
     // 绑定按钮
-    var signIn = document.querySelector('button[name=SignIn]')
-    var signUp = document.querySelector('button[name=SignUp]')
-
+    var signIn = document.querySelector("button[name=SignIn]")
+    var signUp = document.querySelector("button[name=SignUp]")
 
     signIn.onclick = function () {
-        // 跳转到登录页面
-        location.href = './static/html/login.html';
+      // 跳转到登录页面
+      location.href = "./static/html/login.html"
     }
 
     signUp.onclick = function () {
-        // 跳转到注册页面
-        location.href = '/register';
+      // 跳转到注册页面
+      location.href = "/register"
     }
-</script>
-
+  </script>
 </html>
