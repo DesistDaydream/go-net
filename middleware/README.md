@@ -1,20 +1,24 @@
 # Middleware(中间件)
+
 在 Web 编程中，Middleware(中间件) 一般是指在接收到用户的消息前，先进行一系列的预处理，然后再交给实际的 `http.Handler()` 去处理，处理结果可能还需要一系列的后续处理。
 
 典型的中间件功能：
-* 认证、鉴权
-* 统计
-* 等等...
 
+- 认证、鉴权
+- 统计
+- 等等...
 
 ## 代码泥潭
+
 参考：
-* [《Go 语言高级编程》的中间件章节](https://github.com/chai2010/advanced-go-programming-book/blob/master/ch5-web/ch5-03-middleware.md)
-* [某人博客](https://blog.huoding.com/2019/01/31/716)
+
+- [《Go 语言高级编程》的中间件章节](https://github.com/chai2010/advanced-go-programming-book/blob/master/ch5-web/ch5-03-middleware.md)
+- [某人博客](https://blog.huoding.com/2019/01/31/716)
 
 如果实在难以理解中间件的实现，可以先去研究 [gin 的中间件使用方法](https://github.com/DesistDaydream/GoGin/tree/main/middleware)
 
 先来看一段代码：
+
 ```go
 // middleware/hello.go
 package main
@@ -30,9 +34,9 @@ func main() {
 }
 ```
 
-这是一个典型的Web服务，挂载了一个简单的路由。我们的线上服务一般也是从这样简单的服务开始逐渐拓展开去的。
+这是一个典型的 Web 服务，挂载了一个简单的路由。我们的线上服务一般也是从这样简单的服务开始逐渐拓展开去的。
 
-现在突然来了一个新的需求，我们想要统计之前写的hello服务的处理耗时，需求很简单，我们对上面的程序进行少量修改：
+现在突然来了一个新的需求，我们想要统计之前写的 hello 服务的处理耗时，需求很简单，我们对上面的程序进行少量修改：
 
 ```go
 // middleware/hello_with_time_elapse.go
@@ -46,9 +50,9 @@ func hello(wr http.ResponseWriter, r *http.Request) {
 }
 ```
 
-这样便可以在每次接收到http请求时，打印出当前请求所消耗的时间。
+这样便可以在每次接收到 http 请求时，打印出当前请求所消耗的时间。
 
-完成了这个需求之后，我们继续进行业务开发，提供的API逐渐增加，现在我们的路由看起来是这个样子：
+完成了这个需求之后，我们继续进行业务开发，提供的 API 逐渐增加，现在我们的路由看起来是这个样子：
 
 ```go
 // middleware/hello_with_more_routes.go
@@ -79,11 +83,11 @@ func main() {
 
 ```
 
-每一个handler里都有之前提到的记录运行时间的代码，每次增加新的路由我们也同样需要把这些看起来长得差不多的代码拷贝到我们需要的地方去。因为代码不太多，所以实施起来也没有遇到什么大问题。
+每一个 handler 里都有之前提到的记录运行时间的代码，每次增加新的路由我们也同样需要把这些看起来长得差不多的代码拷贝到我们需要的地方去。因为代码不太多，所以实施起来也没有遇到什么大问题。
 
-渐渐的我们的系统增加到了30个路由和`handler`函数，每次增加新的handler，我们的第一件工作就是把之前写的所有和业务逻辑无关的周边代码先拷贝过来。
+渐渐的我们的系统增加到了 30 个路由和`handler`函数，每次增加新的 handler，我们的第一件工作就是把之前写的所有和业务逻辑无关的周边代码先拷贝过来。
 
-接下来系统安稳地运行了一段时间，突然有一天，老板找到你，我们最近找人新开发了监控系统，为了系统运行可以更加可控，需要把每个接口运行的耗时数据主动上报到我们的监控系统里。给监控系统起个名字吧，叫metrics。现在你需要修改代码并把耗时通过HTTP Post的方式发给metrics系统了。我们来修改一下`helloHandler()`：
+接下来系统安稳地运行了一段时间，突然有一天，老板找到你，我们最近找人新开发了监控系统，为了系统运行可以更加可控，需要把每个接口运行的耗时数据主动上报到我们的监控系统里。给监控系统起个名字吧，叫 metrics。现在你需要修改代码并把耗时通过 HTTP Post 的方式发给 metrics 系统了。我们来修改一下`helloHandler()`：
 
 ```go
 func helloHandler(wr http.ResponseWriter, r *http.Request) {
@@ -96,13 +100,13 @@ func helloHandler(wr http.ResponseWriter, r *http.Request) {
 }
 ```
 
-修改到这里，本能地发现我们的开发工作开始陷入了泥潭。无论未来对我们的这个Web系统有任何其它的非功能或统计需求，我们的修改必然牵一发而动全身。只要增加一个非常简单的非业务统计，我们就需要去几十个handler里增加这些业务无关的代码。虽然一开始我们似乎并没有做错，但是显然随着业务的发展，我们的行事方式让我们陷入了代码的泥潭。
+修改到这里，本能地发现我们的开发工作开始陷入了泥潭。无论未来对我们的这个 Web 系统有任何其它的非功能或统计需求，我们的修改必然牵一发而动全身。只要增加一个非常简单的非业务统计，我们就需要去几十个 handler 里增加这些业务无关的代码。虽然一开始我们似乎并没有做错，但是显然随着业务的发展，我们的行事方式让我们陷入了代码的泥潭。
 
 ## 5.3.2 使用中间件剥离非业务逻辑
 
 我们来分析一下，一开始在哪里做错了呢？我们只是一步一步地满足需求，把我们需要的逻辑按照流程写下去呀？
 
-我们犯的最大的错误，是把业务代码和非业务代码揉在了一起。对于大多数的场景来讲，非业务的需求都是在http请求处理前做一些事情，并且在响应完成之后做一些事情。我们有没有办法使用一些重构思路把这些公共的非业务功能代码剥离出去呢？回到刚开头的例子，我们需要给我们的`helloHandler()`增加超时时间统计，我们可以使用一种叫`function adapter`的方法来对`helloHandler()`进行包装：
+我们犯的最大的错误，是把业务代码和非业务代码揉在了一起。对于大多数的场景来讲，非业务的需求都是在 http 请求处理前做一些事情，并且在响应完成之后做一些事情。我们有没有办法使用一些重构思路把这些公共的非业务功能代码剥离出去呢？回到刚开头的例子，我们需要给我们的`helloHandler()`增加超时时间统计，我们可以使用一种叫`function adapter`的方法来对`helloHandler()`进行包装：
 
 ```go
 
@@ -137,7 +141,7 @@ type Handler interface {
 }
 ```
 
-任何方法实现了`ServeHTTP`，即是一个合法的`http.Handler`，读到这里你可能会有一些混乱，我们先来梳理一下http库的`Handler`，`HandlerFunc`和`ServeHTTP`的关系：
+任何方法实现了`ServeHTTP`，即是一个合法的`http.Handler`，读到这里你可能会有一些混乱，我们先来梳理一下 http 库的`Handler`，`HandlerFunc`和`ServeHTTP`的关系：
 
 ```go
 type Handler interface {
@@ -151,19 +155,20 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request) {
 }
 
 ```
-只要你的handler函数签名是：
+
+只要你的 handler 函数签名是：
 
 ```go
 func (ResponseWriter, *Request)
 ```
 
-那么这个`handler`和`http.HandlerFunc()`就有了一致的函数签名，可以将该`handler()`函数进行类型转换，转为`http.HandlerFunc`。而`http.HandlerFunc`实现了`http.Handler`这个接口。在`http`库需要调用你的handler函数来处理http请求时，会调用`HandlerFunc()`的`ServeHTTP()`函数，可见一个请求的基本调用链是这样的：
+那么这个`handler`和`http.HandlerFunc()`就有了一致的函数签名，可以将该`handler()`函数进行类型转换，转为`http.HandlerFunc`。而`http.HandlerFunc`实现了`http.Handler`这个接口。在`http`库需要调用你的 handler 函数来处理 http 请求时，会调用`HandlerFunc()`的`ServeHTTP()`函数，可见一个请求的基本调用链是这样的：
 
 ```go
 h = getHandler() => h.ServeHTTP(w, r) => h(w, r)
 ```
 
-上面提到的把自定义`handler`转换为`http.HandlerFunc()`这个过程是必须的，因为我们的`handler`没有直接实现`ServeHTTP`这个接口。上面的代码中我们看到的HandleFunc(注意HandlerFunc和HandleFunc的区别)里也可以看到这个强制转换过程：
+上面提到的把自定义`handler`转换为`http.HandlerFunc()`这个过程是必须的，因为我们的`handler`没有直接实现`ServeHTTP`这个接口。上面的代码中我们看到的 HandleFunc(注意 HandlerFunc 和 HandleFunc 的区别)里也可以看到这个强制转换过程：
 
 ```go
 func HandleFunc(pattern string, handler func(ResponseWriter, *Request)) {
@@ -177,9 +182,9 @@ func (mux *ServeMux) HandleFunc(pattern string, handler func(ResponseWriter, *Re
 }
 ```
 
-知道handler是怎么一回事，我们的中间件通过包装handler，再返回一个新的handler就好理解了。
+知道 handler 是怎么一回事，我们的中间件通过包装 handler，再返回一个新的 handler 就好理解了。
 
-总结一下，我们的中间件要做的事情就是通过一个或多个函数对handler进行包装，返回一个包括了各个中间件逻辑的函数链。我们把上面的包装再做得复杂一些：
+总结一下，我们的中间件要做的事情就是通过一个或多个函数对 handler 进行包装，返回一个包括了各个中间件逻辑的函数链。我们把上面的包装再做得复杂一些：
 
 ```go
 customizedHandler = logger(timeout(ratelimit(helloHandler)))
@@ -189,7 +194,7 @@ customizedHandler = logger(timeout(ratelimit(helloHandler)))
 
 ![](../images/ch6-03-middleware_flow.png)
 
-*图 5-8 请求处理过程*
+_图 5-8 请求处理过程_
 
 再直白一些，这个流程在进行请求处理的时候就是不断地进行函数压栈再出栈，有一些类似于递归的执行流：
 
@@ -258,10 +263,9 @@ func (r *Router) Add(route string, h http.Handler) {
 
 注意代码中的`middleware`数组遍历顺序，和用户希望的调用顺序应该是"相反"的。应该不难理解。
 
-
 ## 5.3.4 哪些事情适合在中间件中做
 
-以较流行的开源Go语言框架chi为例：
+以较流行的开源 Go 语言框架 chi 为例：
 
 ```
 compress.go
@@ -282,12 +286,12 @@ throttler.go
   => 通过定长大小的channel存储token，并通过这些token对接口进行限流
 ```
 
-每一个Web框架都会有对应的中间件组件，如果你有兴趣，也可以向这些项目贡献有用的中间件，只要合理一般项目的维护人也愿意合并你的Pull Request。
+每一个 Web 框架都会有对应的中间件组件，如果你有兴趣，也可以向这些项目贡献有用的中间件，只要合理一般项目的维护人也愿意合并你的 Pull Request。
 
-比如开源界很火的gin这个框架，就专门为用户贡献的中间件开了一个仓库，见*图 5-9*：
+比如开源界很火的 gin 这个框架，就专门为用户贡献的中间件开了一个仓库，见*图 5-9*：
 
 ![](../images/ch6-03-gin_contrib.png)
 
-*图 5-9 gin的中间件仓库*
+_图 5-9 gin 的中间件仓库_
 
-如果读者去阅读gin的源码的话，可能会发现gin的中间件中处理的并不是`http.Handler`，而是一个叫`gin.HandlerFunc`的函数类型，和本节中讲解的`http.Handler`签名并不一样。不过gin的`handler`也只是针对其框架的一种封装，中间件的原理与本节中的说明是一致的。
+如果读者去阅读 gin 的源码的话，可能会发现 gin 的中间件中处理的并不是`http.Handler`，而是一个叫`gin.HandlerFunc`的函数类型，和本节中讲解的`http.Handler`签名并不一样。不过 gin 的`handler`也只是针对其框架的一种封装，中间件的原理与本节中的说明是一致的。

@@ -1,0 +1,11 @@
+{
+  "name": "go-net",
+  "version": "1.0.0",
+  "description": "go 网络编程学习",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

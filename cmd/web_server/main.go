@@ -4,9 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/DesistDaydream/go-net/cmd/web_server/api"
-	"github.com/DesistDaydream/go-net/cmd/web_server/database"
 	"github.com/DesistDaydream/go-net/cmd/web_server/handler"
+	"github.com/DesistDaydream/go-net/pkg/database"
 	"github.com/DesistDaydream/go-net/web/ui"
 )
 
@@ -16,13 +15,14 @@ func main() {
 	// 将所有静态资源嵌入到 Go 的二进制文件中，使用 Go 作为静态资源的 HTTP 服务器
 	http.Handle("/", http.FileServer(http.FS(ui.Assets)))
 	// 登录功能
-	http.HandleFunc("/api/login", api.Login)
+	http.HandleFunc("/api/login", handler.Login)
+	// TODO: 添加中间件，后面的接口想要访问都要带 Token
 	// 入库
-	http.HandleFunc("/api/stock-in", api.StockIn)
+	http.HandleFunc("/api/stock-in", handler.StockIn)
 	// 出库
-	http.HandleFunc("/api/stock-out", api.StockOut)
+	http.HandleFunc("/api/stock-out", handler.StockOut)
 	// 查库
-	http.HandleFunc("/api/query", api.StockQuery)
+	http.HandleFunc("/api/query", handler.StockQuery)
 
 	// 测试用接口
 	// 基本的 GET、POST、PUT、DELETE 接口用法

@@ -1,10 +1,10 @@
-package api
+package handler
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/DesistDaydream/go-net/cmd/web_server/database"
+	"github.com/DesistDaydream/go-net/pkg/database"
 	"github.com/sirupsen/logrus"
 )
 
