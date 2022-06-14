@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/sirupsen/logrus"
 )
 
 // Test is
@@ -11,10 +13,15 @@ func Test(w http.ResponseWriter, req *http.Request) {
 	// 允许跨域访问
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	fmt.Printf("Prometheus Push 的 URL 为：%v\n", req.URL)
-	fmt.Printf("Prometheus Push 的 Header 为：%v\n", req.Header)
-	fmt.Printf("Prometheus Push 的 Method 为：%v\n", req.Method)
+	logrus.WithField("method", req.Method).Infof("请求方法")
+	logrus.WithField("url", req.URL).Info("URL")
+	for k, v := range req.Header {
+		logrus.WithFields(logrus.Fields{
+			k: v,
+		}).Infof("请求头")
+	}
+	// logrus.WithField("header", req.Header).Infof("请求头")
 	body, _ := io.ReadAll(req.Body)
-	fmt.Printf("Prometheus Push 的 内容 为：%v\n", string(body))
+	logrus.WithField("body", string(body)).Infof("请求体")
 	fmt.Fprintf(w, "测试页面!")
 }
