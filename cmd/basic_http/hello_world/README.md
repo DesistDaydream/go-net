@@ -1,3 +1,3 @@
 ```bash
-go test -v cmd/hello_world/http_client*.go
-````
+go test -v cmd/basic_http/hello_world/http_client*.go
+```
