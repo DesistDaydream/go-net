@@ -1,14 +1,14 @@
 module github.com/DesistDaydream/go-net
 
-go 1.18
+go 1.22.2
 
 require (
 	github.com/go-chi/chi v1.5.4
 	github.com/go-ping/ping v1.1.0
 	github.com/prometheus/alertmanager v0.24.0
 	github.com/rs/xid v1.4.0
-	github.com/sirupsen/logrus v1.9.0
-	github.com/spf13/pflag v1.0.3
+	github.com/sirupsen/logrus v1.9.3
+	github.com/spf13/pflag v1.0.5
 	github.com/vishvananda/netlink v1.1.0
 	gorm.io/driver/sqlite v1.3.6
 	gorm.io/gorm v1.23.8
