@@ -1,6 +1,6 @@
 module github.com/DesistDaydream/go-net
 
-go 1.24
+go 1.26
 
 require (
 	github.com/go-chi/chi v1.5.5
